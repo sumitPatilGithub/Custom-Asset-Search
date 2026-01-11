@@ -141,9 +141,9 @@ app.post("/api/assets", async (req, res) => {
 
     console.log(" Assets cloud Data",cloudData);
     
-    // if (!cloudData?.email) {
-    //   return res.status(401).json({ error: "Not authenticated" });
-    // }
+    if (!cloudData?.accountId) {
+      return res.status(401).json({ error: "Not authenticated" });
+    }
     const body=JSON.stringify({
         qlQuery: query
     })
@@ -192,15 +192,15 @@ app.post("/api/profile",async(req,res)=>
       }
     );
     const data=await response.data
-   
-   console.log("Profile handler Called ",data);
-    res.cookie("cloudData",data, {
+   const cookieData=data.data
+   console.log("Profile handler Called ",cookieData);
+    res.cookie("cloudData",cookieData, {
     secure: true,
     httpOnly: true,
     sameSite: "none",
      maxAge: 3600000
   });
-  res.json(data)
+  res.json(cookieData)
 })
 
 
