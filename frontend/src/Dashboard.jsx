@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import SearchApp from "./SearchApp";
+import jwtDecode from 'jwt-decode'
 
 export default function Dashboard() {
   const [profilePic, setProfilePic] = useState("");
@@ -9,6 +10,12 @@ export default function Dashboard() {
        {
            const loadData=async()=>
            {
+               const params = new URLSearchParams(window.location.search);
+    const token = params.get("token");
+    if (token) {
+      const user = jwtDecode(token); // decode and validate
+      console.log("Logged in user:", user);
+    }
               const profileData=await axios.get("/api/profile",{
                withCredentials:true
               });
