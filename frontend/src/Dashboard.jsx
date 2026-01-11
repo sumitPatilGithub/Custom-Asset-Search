@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import SearchApp from "./SearchApp";
-import jwtDecode from 'jwt-decode'
+import { jwtDecode }  from 'jwt-decode'
 
 export default function Dashboard() {
   const [profilePic, setProfilePic] = useState("");
