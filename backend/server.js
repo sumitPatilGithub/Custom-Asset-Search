@@ -179,6 +179,7 @@ app.post("/api/assets", async (req, res) => {
 
 app.post("/api/profile",async(req,res)=>
 {
+    const auth = Buffer.from(`${EMAIL_ID}:${ACCESS_TOKEN}`).toString("base64");
     const accountId=req.body.userId;
     const response = await axios.get(
       `https://s2ssupport-sandbox.atlassian.net/rest/api/3/user?accountId=${accountId}`,
