@@ -102,9 +102,9 @@ function mergeAssetData(assets, circuits, locations) {
   const combinedLoading = loading || assetLoading || circuitLoading;
   // const combinedLoadedCount = (locationLoadedCount || 0) + (assetLoadedCount || 0) + (circuitLoadedCount || 0);
 
-if (error) return <div><AuthErrorCard message={String(error)}/></div>;
-  if (assetError) return <div><AuthErrorCard message={String(error)}/></div>;
-  if (circuitError) return <div><AuthErrorCard message={String(error)}/></div>;
+// if (error) return <div><AuthErrorCard message={String(error)}/></div>;
+//   if (assetError) return <div><AuthErrorCard message={String(error)}/></div>;
+//   if (circuitError) return <div><AuthErrorCard message={String(error)}/></div>;
 
   return (
     <div>

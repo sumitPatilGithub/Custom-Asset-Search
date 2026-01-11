@@ -47,31 +47,33 @@ const {
   EMAIL_ID
 
 } = process.env;
-app.get("/auth/start", (req, res) => {
-  const state = "secureState123"; // generate per session in real apps
+// app.get("/auth/start", (req, res) => {
+//   const state = "secureState123"; // generate per session in real apps
 
-  const scopes = [
-    "read:account",
-    "read:me",
-    //  "read:servicemanagement-insight-objects",
-    //  "read:cmdb-object:jira",
-    //  "read:cmdb-schema:jira",
-    //  "read:cmdb-attribute:jira",
-    //  "read:cmdb-type:jira"
-  ].join(" ");
+//   const scopes = [
+//     "read:account",
+//     "read:me",
+//     //  "read:servicemanagement-insight-objects",
+//     //  "read:cmdb-object:jira",
+//     //  "read:cmdb-schema:jira",
+//     //  "read:cmdb-attribute:jira",
+//     //  "read:cmdb-type:jira",
+//     //  "read:organization.user:jira-service-management",
+//     //  "read:customer.profile:jira-service-management"
+//   ].join(" ");
 
-  const authUrl =
-    `https://auth.atlassian.com/authorize?` +
-    `audience=api.atlassian.com` +
-    `&client_id=${CLIENT_ID}` +
-    `&scope=${encodeURIComponent(scopes)}` +
-    `&redirect_uri=${encodeURIComponent(REDIRECT_URI)}` +
-    `&state=${state}` +
-    `&response_type=code` +
-    `&prompt=consent`;
+//   const authUrl =
+//     `https://auth.atlassian.com/authorize?` +
+//     `audience=api.atlassian.com` +
+//     `&client_id=${CLIENT_ID}` +
+//     `&scope=${encodeURIComponent(scopes)}` +
+//     `&redirect_uri=${encodeURIComponent(REDIRECT_URI)}` +
+//     `&state=${state}` +
+//     `&response_type=code` +
+//     `&prompt=consent`;
 
-  res.redirect(authUrl);
-});
+//   res.redirect(authUrl);
+// });
 
 
 async function getCloudId(accessToken) {
@@ -90,42 +92,42 @@ async function getCloudId(accessToken) {
 }
 
 
-app.get("/auth/callback", async (req, res) => {
-  const { code } = req.query;
+// app.get("/auth/callback", async (req, res) => {
+//   const { code } = req.query;
 
-  const tokenRes = await axios.post(
-    "https://auth.atlassian.com/oauth/token",
-    {
-      client_id: CLIENT_ID,
-      client_secret: CLIENT_SECRET,
-      grant_type: "authorization_code",
-      code,
-      redirect_uri: REDIRECT_URI,
-    }
-  );
+//   const tokenRes = await axios.post(
+//     "https://auth.atlassian.com/oauth/token",
+//     {
+//       client_id: CLIENT_ID,
+//       client_secret: CLIENT_SECRET,
+//       grant_type: "authorization_code",
+//       code,
+//       redirect_uri: REDIRECT_URI,
+//     }
+//   );
   
-  console.log("Code==============>",code);
+//   console.log("Code==============>",code);
   
-  const tokens = tokenRes.data;
-    console.log(tokens);
+//   const tokens = tokenRes.data;
+//     console.log(tokens);
     
-    const cloudData=await getCloudId(tokens.access_token)
-    console.log("cloud data ",cloudData);
+//     const cloudData=await getCloudId(tokens.access_token)
+//     console.log("cloud data ",cloudData);
     
-  // Store tokens in backend memory/DB
-  tokenStore = tokens;
+//   // Store tokens in backend memory/DB
+//   tokenStore = tokens;
 
-  // Save only the access token (or a session token mapping to tokens in DB)
-  res.cookie("cloudData", cloudData, {
-    httpOnly: true,
-    secure: true,
-    sameSite: "none",
-    maxAge: tokens.expires_in * 1000, // optional
-    // maxAge:10000
-  });
+//   // Save only the access token (or a session token mapping to tokens in DB)
+//   res.cookie("cloudData", cloudData, {
+//     httpOnly: true,
+//     secure: true,
+//     sameSite: "none",
+//     maxAge: tokens.expires_in * 1000, // optional
+//     // maxAge:10000
+//   });
 
-  res.redirect(`/dashboard`);
-});
+//   res.redirect(`/dashboard`);
+// });
 
 
 
@@ -139,9 +141,9 @@ app.post("/api/assets", async (req, res) => {
 
     console.log(" Assets cloud Data",cloudData);
     
-    if (!cloudData?.email) {
-      return res.status(401).json({ error: "Not authenticated" });
-    }
+    // if (!cloudData?.email) {
+    //   return res.status(401).json({ error: "Not authenticated" });
+    // }
     const body=JSON.stringify({
         qlQuery: query
     })
@@ -181,7 +183,7 @@ app.get("/api/profile",async(req,res)=>
     
    const cloudData = req.cookies.cloudData;
    console.log("Profile handler Called ",cloudData);
-    res.cookie("cloudData",cloudData, {
+    res.cookie("cloudData","test", {
     secure: true,
     httpOnly: true,
     sameSite: "none",
