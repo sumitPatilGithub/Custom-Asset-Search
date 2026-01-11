@@ -177,19 +177,29 @@ app.post("/api/assets", async (req, res) => {
 
 //////////////////////////////// fetch profile /////////////////////////////////////////
 
-app.get("/api/profile",async(req,res)=>
+app.post("/api/profile",async(req,res)=>
 {
-    
-    
-   const cloudData = req.cookies.cloudData;
-   console.log("Profile handler Called ",cloudData);
-    res.cookie("cloudData","test", {
+    const accountId=req.body.userId;
+    const response = await axios.get(
+      `https://s2ssupport-sandbox.atlassian.net/rest/api/3/user?accountId=${accountId}`,
+      {
+        headers: {
+          Authorization: `Basic ${auth}`,
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+      }
+    );
+    const data=await response.data
+   
+   console.log("Profile handler Called ",data);
+    res.cookie("cloudData",data, {
     secure: true,
     httpOnly: true,
     sameSite: "none",
      maxAge: 3600000
   });
-  res.json(cloudData)
+  res.json(data)
 })
 
 

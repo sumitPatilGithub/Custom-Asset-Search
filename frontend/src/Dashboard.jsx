@@ -11,12 +11,13 @@ export default function Dashboard() {
            const loadData=async()=>
            {
                const params = new URLSearchParams(window.location.search);
+                let user={}
     const token = params.get("token");
     if (token) {
-      const user = jwtDecode(token); // decode and validate
+          user = jwtDecode(token); // decode and validate
       console.log("Logged in user:", user);
     }
-              const profileData=await axios.get("/api/profile",{
+              const profileData=await axios.post("/api/profile",user,{
                withCredentials:true
               });
               console.log("profileData",profileData);
