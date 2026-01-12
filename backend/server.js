@@ -141,9 +141,9 @@ app.post("/api/assets", async (req, res) => {
 
     console.log(" Assets cloud Data",cloudData);
     
-    if (!cloudData?.accountId) {
-      return res.status(401).json({ error: "Not authenticated" });
-    }
+    // if (!cloudData?.accountId) {
+    //   return res.status(401).json({ error: "Not authenticated" });
+    // }
     const body=JSON.stringify({
         qlQuery: query
     })
