@@ -16,13 +16,17 @@ export default function Dashboard() {
     if (token) {
           user = jwtDecode(token); // decode and validate
       console.log("Logged in user:", user);
-    }
+    
               const profileData=await axios.post("/api/profile",user,{
                withCredentials:true
               });
               console.log("profileData",profileData);
               setProfilePic(profileData.data.avatarUrls["16x16"])
-   
+              localStorage.setItem("profilePic", profileData.data.avatarUrls["16x16"]);
+            }
+            else{
+              setProfilePic(localStorage.getItem("profilePic"));
+            }
            }
            loadData()
            
@@ -46,7 +50,10 @@ export default function Dashboard() {
 
   {/* SearchApp centered */}
   <div style={{marginTop:"80px"}}>
-    <SearchApp />
+    {
+      profilePic!="" ? <SearchApp />:"LOADING . . ."
+    }
+    
   </div>
 </div>
 

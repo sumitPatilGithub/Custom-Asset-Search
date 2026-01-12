@@ -17,19 +17,19 @@ app.use(express.static(path.join(__dirname, "../frontend/build")));
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
 })
-app.get('/dashboard', (req, res) => {
+// app.get('/dashboard', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
+// })
+app.get('/circuits', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
 })
-app.get('/dashboard/circuits', (req, res) => {
+app.get('/location', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
 })
-app.get('/dashboard/location', (req, res) => {
+app.get('/assets', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
 })
-app.get('/dashboard/assets', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
-})
-app.get('/dashboard/combined', (req, res) => {
+app.get('/combined', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
 })
 
@@ -76,20 +76,20 @@ const {
 // });
 
 
-async function getCloudId(accessToken) {
-  const res = await axios.get(
-    "https://api.atlassian.com/me",
-    {
-      headers: { Authorization: `Bearer ${accessToken}` },
-    }
-  );
+// async function getCloudId(accessToken) {
+//   const res = await axios.get(
+//     "https://api.atlassian.com/me",
+//     {
+//       headers: { Authorization: `Bearer ${accessToken}` },
+//     }
+//   );
 
 
-   const cloudData=await res.data
-   console.log("Cloud Data",cloudData);
+//    const cloudData=await res.data
+//    console.log("Cloud Data",cloudData);
    
-    return cloudData;
-}
+//     return cloudData;
+// }
 
 
 // app.get("/auth/callback", async (req, res) => {
@@ -134,16 +134,16 @@ async function getCloudId(accessToken) {
 
 app.post("/api/assets", async (req, res) => {
   try {
-    const cloudData = req.cookies.cloudData;
+    const accountId = req.cookies.accountId;
     const {  query, maxResults = 100, startAt = 0 } = req.body;
     // console.log("cloudData ",cloudData);
     const auth = Buffer.from(`${EMAIL_ID}:${ACCESS_TOKEN}`).toString("base64");
 
-    console.log(" Assets cloud Data",cloudData);
+    console.log(" Assets cloud Data",accountId);
     
-    // if (!cloudData?.accountId) {
-    //   return res.status(401).json({ error: "Not authenticated" });
-    // }
+    if (!accountId) {
+      return res.status(401).json({ error: "Not authenticated" });
+    }
     const body=JSON.stringify({
         qlQuery: query
     })
@@ -159,7 +159,7 @@ app.post("/api/assets", async (req, res) => {
         },
       }
     );
-     res.cookie("cloudData",cloudData, {
+     res.cookie("accountId",accountId, {
     secure: true,
     httpOnly: true,
     sameSite: "none",
@@ -193,7 +193,7 @@ app.post("/api/profile",async(req,res)=>
     );
     const data=await response.data
    console.log("Profile handler Called ",data);
-    res.cookie("cloudData",data, {
+    res.cookie("accountId",data.accountId, {
     secure: true,
     httpOnly: true,
     sameSite: "none",

@@ -31,8 +31,11 @@
 // Components/Nav.jsx
 import Nav from 'react-bootstrap/Nav';
 import { LinkContainer } from 'react-router-bootstrap';
+import { useLocation } from "react-router-dom";
 
 function MyNavbar() {
+  
+  const location = useLocation();
   return (
     <div className="d-flex align-items-center bg-secondary p-2">
       
@@ -42,27 +45,29 @@ function MyNavbar() {
       </div>
 
       {/* Inline Nav Items */}
-      <Nav variant="pills" defaultActiveKey="/dashboard/location" className="d-flex">
+      <Nav variant="pills" 
+        activeKey={location.pathname}
+        className="d-flex"> 
         <Nav.Item>
-          <LinkContainer to="/dashboard/location">
+          <LinkContainer to="/location">
             <Nav.Link className="text-light fw-bold">Location</Nav.Link>
           </LinkContainer>
         </Nav.Item>
 
         <Nav.Item>
-          <LinkContainer to="/dashboard/circuits">
+          <LinkContainer to="/circuits">
             <Nav.Link className="text-light fw-bold">Circuits</Nav.Link>
           </LinkContainer>
         </Nav.Item>
 
         <Nav.Item>
-          <LinkContainer to="/dashboard/assets">
+          <LinkContainer to="/assets">
             <Nav.Link className="text-light fw-bold">Assets</Nav.Link>
           </LinkContainer>
         </Nav.Item>
 
         <Nav.Item>
-          <LinkContainer to="/dashboard/combined">
+          <LinkContainer to="/combined">
             <Nav.Link className="text-light fw-bold">Combined Data</Nav.Link>
           </LinkContainer>
         </Nav.Item>
