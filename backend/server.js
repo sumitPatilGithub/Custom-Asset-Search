@@ -192,7 +192,6 @@ app.post("/api/profile",async(req,res)=>
       }
     );
     const data=await response.data
-   const cookieData=data.data
    console.log("Profile handler Called ",cookieData);
     res.cookie("cloudData",cookieData, {
     secure: true,
@@ -200,7 +199,7 @@ app.post("/api/profile",async(req,res)=>
     sameSite: "none",
      maxAge: 3600000
   });
-  res.json(cookieData)
+  res.json(data)
 })
 
 

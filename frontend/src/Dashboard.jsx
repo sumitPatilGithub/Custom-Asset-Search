@@ -21,7 +21,7 @@ export default function Dashboard() {
                withCredentials:true
               });
               console.log("profileData",profileData);
-              setProfilePic(profileData.avatarUrls["16x16"])
+              setProfilePic(profileData.data.avatarUrls["16x16"])
    
            }
            loadData()
