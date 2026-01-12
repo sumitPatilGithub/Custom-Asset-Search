@@ -192,8 +192,8 @@ app.post("/api/profile",async(req,res)=>
       }
     );
     const data=await response.data
-   console.log("Profile handler Called ",cookieData);
-    res.cookie("cloudData",cookieData, {
+   console.log("Profile handler Called ",data);
+    res.cookie("cloudData",data, {
     secure: true,
     httpOnly: true,
     sameSite: "none",
