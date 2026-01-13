@@ -2,7 +2,7 @@ import React from "react";
 
 const AuthErrorCard = ({ message }) => {
   const handleLogin = () => {
- window.location.href = "https://s2ssupport-sandbox.atlassian.net/servicedesk/customer/user/profile" // your Atlassian login endpoint
+ window.location.href = "https://test-s2s.refined.site" // your Atlassian login endpoint
   };
 
   return (
@@ -14,7 +14,7 @@ const AuthErrorCard = ({ message }) => {
         </p>
 
         <button style={styles.button} onClick={handleLogin}>
-          Login with Atlassian
+          Login
         </button>
       </div>
     </div>

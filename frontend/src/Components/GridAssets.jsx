@@ -176,12 +176,26 @@
 import React, { useMemo, useState } from "react";
 import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
+// import { useGridData } from "./DridDataProvider";
 
+import { useGridData } from "./GridDataContext";
+import { useEffect } from "react";
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 const GridAssets = ({ loading, data }) => {
   const [gridApi, setGridApi] = useState(null);
-
+  const {
+      setFilteredDataForRoute,
+      setLoadingForRoute
+    } = useGridData();
+  
+  
+   const ROUTE = "/assets";
+  //  setFilteredDataForRoute(ROUTE,data)
+  useEffect(()=>
+      {
+        setFilteredDataForRoute(ROUTE,data)
+      },[])
   const [colDefs] = useState([
     { field: "Assets Name", width: 150 },
     { field: "Customer Name", width: 130 },
@@ -200,6 +214,9 @@ const GridAssets = ({ loading, data }) => {
     editable: true,
   }), []);
 
+ useEffect(() => {
+     setLoadingForRoute(ROUTE, loading);
+   }, [loading]);
   // Capture grid API
   const onGridReady = (params) => {
     setGridApi(params.api);
@@ -215,17 +232,18 @@ const GridAssets = ({ loading, data }) => {
     });
 
     console.log("Filtered Data →", filteredRows);
-    return filteredRows;
+    setFilteredDataForRoute(ROUTE, filteredRows);
+    
   };
 
   return (
     <div style={{ width: "100%", height: "530px" }}>
-      <button
+      {/* <button
         onClick={() => getFilteredData()}
         style={{ marginBottom: "10px" }}
       >
         Get Filtered Data
-      </button>
+      </button> */}
 
       <AgGridReact
         rowData={data}
@@ -234,7 +252,7 @@ const GridAssets = ({ loading, data }) => {
         defaultColDef={defaultColDef}
         pagination={true}
         onGridReady={onGridReady}
-        onFilterChanged={() => console.log("Filter changed!")}
+        onFilterChanged={() => getFilteredData()}
         rowSelection="multiple"
       />
     </div>

@@ -12,6 +12,7 @@ import GridCombinedData from './Components/GridCombinedData';
 import AuthErrorCard from './AuthErrorCard';
 import axios from "axios";
 import { useEffect } from 'react';
+import { GridDataProvider } from './Components/GridDataContext';
 function SearchApp() {
 
     
@@ -108,6 +109,7 @@ if (error) return <div><AuthErrorCard message={String(error)}/></div>;
 
   return (
     <div>
+      <GridDataProvider>
       <MyNavbar />
       <div className=" mt-3">
         <Routes>
@@ -130,6 +132,7 @@ if (error) return <div><AuthErrorCard message={String(error)}/></div>;
           <Route path="*" element={<div>Page not found</div>} />
         </Routes>
       </div>
+      </GridDataProvider>
     </div>
   );
 }

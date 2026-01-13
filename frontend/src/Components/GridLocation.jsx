@@ -6,75 +6,17 @@ import React, { StrictMode, useMemo, useState } from "react";
 import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
 import { useFetchJson } from "./useFetchJsonForLocation";
+import { useGridData } from "./GridDataContext";
+import { useEffect } from "react";
 
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 // Custom Cell Renderer (Display logos based on cell value)
-const CompanyLogoRenderer = (params) => (
-  <span
-    style={{
-      display: "flex",
-      height: "100%",
-      width: "100%",
-      alignItems: "center",
-    }}
-  >
-    {params.value && (
-      <img
-        alt={`${params.value} Flag`}
-        src={`https://www.ag-grid.com/example-assets/space-company-logos/${params.value.toLowerCase()}.png`}
-        style={{
-          display: "block",
-          width: "25px",
-          height: "auto",
-          maxHeight: "50%",
-          marginRight: "12px",
-          filter: "brightness(1.1)",
-        }}
-      />
-    )}
-    <p
-      style={{
-        textOverflow: "ellipsis",
-        overflow: "hidden",
-        whiteSpace: "nowrap",
-      }}
-    >
-      {params.value}
-    </p>
-  </span>
-);
 
 /* Custom Cell Renderer (Display tick / cross in 'Successful' column) */
-const MissionResultRenderer = (params) => (
-  <span
-    style={{
-      display: "flex",
-      justifyContent: "center",
-      height: "100%",
-      alignItems: "center",
-    }}
-  >
-    {
-      <img
-        alt={`${params.value}`}
-        src={`https://www.ag-grid.com/example-assets/icons/${params.value ? "tick-in-circle" : "cross-in-circle"}.png`}
-        style={{ width: "auto", height: "auto" }}
-      />
-    }
-  </span>
-);
 
-/* Format Date Cells */
-const dateFormatter = (params) => {
-  return new Date(params.value).toLocaleDateString("en-us", {
-    weekday: "long",
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
-};
+
 
 const rowSelection = {
   mode: "multiRow",
@@ -83,8 +25,18 @@ const rowSelection = {
 
 // Create new GridExample component
 const GridLocation = ({loading,data}) => {
+  const [gridApi, setGridApi] = useState(null);
  
+  const ROUTE="/location"
+    const {
+      setFilteredDataForRoute,
+      setLoadingForRoute
+    } = useGridData();
   
+    useEffect(()=>
+    {
+      setFilteredDataForRoute(ROUTE,data)
+    },[])
 
   // Column Definitions: Defines & controls grid columns.
   const [colDefs] = useState([
@@ -152,6 +104,24 @@ const GridLocation = ({loading,data}) => {
       editable: true,
     };
   }, []);
+  useEffect(() => {
+    setLoadingForRoute(ROUTE, loading);
+  }, [loading]);
+
+  const onGridReady = (params) => {
+    setGridApi(params.api);
+  };
+
+  const syncFilteredData = () => {
+    if (!gridApi) return;
+
+    const rows = [];
+    gridApi.forEachNodeAfterFilterAndSort(node => {
+      rows.push(node.data);
+    });
+
+    setFilteredDataForRoute(ROUTE, rows);
+  };
 
   // Container: Defines the grid's theme & dimensions.
   return (
@@ -167,6 +137,8 @@ const GridLocation = ({loading,data}) => {
         onCellValueChanged={(event) =>
           console.log(`New Cell Value: ${event.value}`)
         }
+        onGridReady={onGridReady}
+        onFilterChanged={syncFilteredData}
       />
     </div>
   );
