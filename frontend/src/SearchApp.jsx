@@ -107,7 +107,10 @@ const [custData,setCustData]=useState({});
 
   const circuitPayload = useMemo(
     () => ({
-      query: 'objectType  = "Circuit List"',
+      query: `objectType = "Circuit List"
+      AND "Customer Name".Name IN (${custData.companies
+        .map(c => `"${c.name}"`)
+        .join(", ")})`,
       workspaceId: "95aaeb5c-8417-4a83-811c-735e4c08c346",
       startAt: 0,
     }),
