@@ -166,7 +166,7 @@ app.post("/api/assets", async (req, res) => {
      maxAge: 3600000
   });
     const data=await response.data
-    // console.log("Data",data);                                                                                
+    console.log("Data",data);                                                                                
     res.json(data);
     
   } catch (e) {
