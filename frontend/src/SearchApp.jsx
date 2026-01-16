@@ -74,7 +74,7 @@ const [custData,setCustData]=useState({});
         const values = response && response.data.values ? response.data.values : [];
 
         console.log("UserData",values);
-        const userData=getEmailAndCompanies(values);
+        const userData=getEmailAndCompanies(values[0]);
 
         console.log("all company data",userData);
         
