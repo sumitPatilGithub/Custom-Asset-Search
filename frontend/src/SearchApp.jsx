@@ -338,24 +338,59 @@ function SearchApp({ userEmail }) {
   /* ---------------- PAYLOADS ---------------- */
   const workspaceId = "95aaeb5c-8417-4a83-811c-735e4c08c346";
 
-  const locationPayload = useMemo(
-    () => ({
-      query: 'objectType = "Location List"',
+  // const locationPayload = useMemo(
+  //   () => ({
+  //     query: 'objectType = "Location List"',
+  //     workspaceId,
+  //     startAt: 0,
+  //   }),
+  //   []
+  // );
+
+  const locationPayload = useMemo(() => {
+    const companyNames = custData.companies
+      .map(c => `"${c.name}"`)
+      .join(", ");
+
+    return {
+      query: companyNames
+        ? `objectType = "Location List"
+           AND "Customer Name".Name IN (${companyNames})`
+        : `objectType = "Location List"`,
       workspaceId,
       startAt: 0,
-    }),
-    []
-  );
+    };
+  }, [custData.companies]);
 
-  const assetsPayload = useMemo(
-    () => ({
-      query: 'objectType = "Assets List"',
+  const shouldFetchLocations = custData.companies.length > 0;
+
+
+  // const assetsPayload = useMemo(
+  //   () => ({
+  //     query: 'objectType = "Assets List"',
+  //     workspaceId,
+  //     startAt: 0,
+  //   }),
+  //   []
+  // );
+const assetsPayload = useMemo(() => {
+    const companyNames = custData.companies
+      .map(c => `"${c.name}"`)
+      .join(", ");
+
+    return {
+      query: companyNames
+        ? `objectType = "Assets List"
+           AND "Customer Name".Name IN (${companyNames})`
+        : `objectType = "Assets List"`,
       workspaceId,
       startAt: 0,
-    }),
-    []
-  );
+    };
+  }, [custData.companies]);
 
+const shouldFetchAssets = custData.companies.length > 0;
+
+///////////////////////////////////////////////////////////////////////////////////////////////
   const circuitPayload = useMemo(() => {
     const companyNames = custData.companies
       .map(c => `"${c.name}"`)
@@ -375,10 +410,10 @@ function SearchApp({ userEmail }) {
 
   /* ---------------- FETCH DATA ---------------- */
   const { data, loading, error, loadedCount } =
-    useFetchJsonForLocation(locationPayload);
+    useFetchJsonForLocation(shouldFetchLocations?locationPayload:null);
 
   const { assetData, assetLoading, assetError, assetLoadedCount } =
-    useFetchJsonForAssets(assetsPayload);
+    useFetchJsonForAssets(shouldFetchAssets ? assetsPayload : null);
 
   const {
     circuitData,
