@@ -75,6 +75,9 @@ const [custData,setCustData]=useState({});
 
         console.log("UserData",values);
         const userData=getEmailAndCompanies(values);
+
+        console.log("all company data",userData);
+        
         setCustData(userData)
     
 
