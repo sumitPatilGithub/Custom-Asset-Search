@@ -202,47 +202,7 @@ app.post("/api/profile",async(req,res)=>
   res.json(data)
 })
 
-app.post("/api/externalusers", async (req, res) => {
-  try {
-    const accountId = req.cookies.accountId;
-    const {  query, maxResults = 100, startAt = 0 } = req.body;
-    // console.log("cloudData ",cloudData);
-    const auth = Buffer.from(`${EMAIL_ID}:${ACCESS_TOKEN}`).toString("base64");
 
-    console.log(" Assets cloud Data",accountId);
-    
-    if (!accountId) {
-      return res.status(401).json({ error: "Not authenticated" });
-    }
-    const body=JSON.stringify({
-        qlQuery: query
-    })
-
-
-    const response = await axios.post(
-      `https://api.atlassian.com/ex/jira/${CLOUD_ID}/jsm/assets/workspace/${WORKSPACE_ID}/v1/object/aql?includeAttributes=true&maxResults=${maxResults}&startAt=${startAt}`,body,
-      {
-        headers: {
-          Authorization: `Basic ${auth}`,
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        },
-      }
-    );
-     res.cookie("accountId",accountId, {
-    secure: true,
-    httpOnly: true,
-    sameSite: "none",
-     maxAge: 3600000
-  });
-    const data=await response.data
-    // console.log("Data",data);                                                                                
-    res.json(data);
-    
-  } catch (e) {
-    res.status(500).json({ error: e.message });
-  }
-});
 
 
 app.listen(4000, () =>
