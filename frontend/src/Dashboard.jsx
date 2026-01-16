@@ -6,6 +6,7 @@ import { jwtDecode }  from 'jwt-decode'
 
 export default function Dashboard() {
   const [profilePic, setProfilePic] = useState("");
+  const [userEmail,setUserEmail]=useState();
    useEffect(()=>
        {
            const loadData=async()=>
@@ -22,6 +23,7 @@ export default function Dashboard() {
               });
               console.log("profileData",profileData);
               setProfilePic(profileData.data.avatarUrls["16x16"])
+              setUserEmail(profileData.data.emailAddress)
               localStorage.setItem("profilePic", profileData.data.avatarUrls["16x16"]);
             }
             else{
@@ -51,7 +53,7 @@ export default function Dashboard() {
   {/* SearchApp centered */}
   <div style={{marginTop:"80px"}}>
     {
-      profilePic!="" ? <SearchApp />:"LOADING . . ."
+      profilePic!="" ? <SearchApp userEmail={userEmail}/>:"LOADING . . ."
     }
     
   </div>
