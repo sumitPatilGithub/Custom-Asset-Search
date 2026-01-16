@@ -16,7 +16,7 @@ import { GridDataProvider } from "./Components/GridDataContext";
 
 
 function SearchApp({ userEmail }) {
-const [custData,setCustData]=useState({});
+const [custData,setCustData]=useState({companies:[]});
 
 
   useEffect(()=>
