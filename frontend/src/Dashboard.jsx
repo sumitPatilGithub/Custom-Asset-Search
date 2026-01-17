@@ -29,7 +29,7 @@ export default function Dashboard() {
             }
             else{
               setProfilePic(localStorage.getItem("profilePic"));
-              setUserEmail(profileData.data.emailAddress)
+              setUserEmail(localStorage.getItem("email"))
             }
            }
            loadData()
