@@ -6,7 +6,7 @@ import { jwtDecode }  from 'jwt-decode'
 
 export default function Dashboard() {
   const [profilePic, setProfilePic] = useState("");
-  const [userEmail,setUserEmail]=useState();
+  const [userEmail,setUserEmail]=useState("");
    useEffect(()=>
        {
            const loadData=async()=>
@@ -25,14 +25,16 @@ export default function Dashboard() {
               setProfilePic(profileData.data.avatarUrls["16x16"])
               setUserEmail(profileData.data.emailAddress)
               localStorage.setItem("profilePic", profileData.data.avatarUrls["16x16"]);
+              localStorage.setItem("email",profileData.data.emailAddress)
             }
             else{
               setProfilePic(localStorage.getItem("profilePic"));
+              setUserEmail(profileData.data.emailAddress)
             }
            }
            loadData()
            
-       })
+       },[])
   return (
    <div style={{ marginTop: "50px", marginInline: "10px" }}>
   {/* Profile pic at top-right */}
