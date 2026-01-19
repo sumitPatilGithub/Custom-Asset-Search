@@ -14,7 +14,7 @@ export default function Dashboard() {
                const params = new URLSearchParams(window.location.search);
                 let user={}
     const token = params.get("token");
-    const email=params.get("email")
+    // const email=params.get("email")
     if (token) {
           user = jwtDecode(token); // decode and validate
       console.log("Logged in user:", user);
@@ -24,9 +24,9 @@ export default function Dashboard() {
               });
               console.log("profileData",profileData);
               setProfilePic(profileData.data.avatarUrls["16x16"])
-              setUserEmail(email)
+              setUserEmail(user.email)
               localStorage.setItem("profilePic", profileData.data.avatarUrls["16x16"]);
-              localStorage.setItem("email",email)
+              localStorage.setItem("email",user.email)
             }
             else{
               setProfilePic(localStorage.getItem("profilePic"));
