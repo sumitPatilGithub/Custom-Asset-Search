@@ -274,6 +274,8 @@ import { useFetchJsonForLocation } from "./Components/useFetchJsonForLocation";
 import { useFetchJsonForAssets } from "./Components/useFetchJsonForAssets";
 import { useFetchJsonForCircuits } from "./Components/useFetchJsonForCircuits";
 import { GridDataProvider } from "./Components/GridDataContext";
+import '@atlaskit/css-reset';
+
 
 function SearchApp({ userEmail }) {
   const [custData, setCustData] = useState({ email: null, companies: [] });

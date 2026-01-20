@@ -35,8 +35,10 @@ const GridLocation = ({loading,data}) => {
   
     useEffect(()=>
     {
-      setFilteredDataForRoute(ROUTE,data)
-    },[])
+      if (Array.isArray(data)) {
+    setFilteredDataForRoute(ROUTE, data);
+    }
+    },[data])
 
   // Column Definitions: Defines & controls grid columns.
   const [colDefs] = useState([
