@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import path from "path";
+import jwt from "jsonwebtoken";
 const __dirname = path.resolve();
 dotenv.config();
 const app = express();
@@ -177,6 +178,28 @@ app.post("/api/assets", async (req, res) => {
 
 //////////////////////////////// fetch profile /////////////////////////////////////////
 
+
+app.get('/auth/exchange', async (req, res) => {
+  const { token } = req.query;
+  // Validate + mark token used
+  // await exchangeToken(token);
+  // Create session cookie
+  // 🔓 Decode token
+    const decoded = jwt.verify(token, "a3k9f8PqL2v0ZrW7sD4xM1hN8bC6tG9e");
+    
+    // 👇 Extract accountId
+    const accountId = decoded.userId;
+
+  res.cookie('accountId', accountId, {
+   secure: true,
+    httpOnly: true,
+    sameSite: "none",
+     maxAge: 3600000
+  });
+  // 
+//  Token REMOVED here
+  res.redirect('/');
+});
 app.post("/api/profile",async(req,res)=>
 {
     const auth = Buffer.from(`${EMAIL_ID}:${ACCESS_TOKEN}`).toString("base64");
