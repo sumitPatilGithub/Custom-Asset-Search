@@ -189,6 +189,7 @@ app.get('/auth/exchange', async (req, res) => {
     
     // 👇 Extract accountId
     const accountId = decoded.userId;
+    
 
   res.cookie('accountId', accountId, {
    secure: true,
@@ -204,6 +205,10 @@ app.post("/api/profile",async(req,res)=>
 {
     const auth = Buffer.from(`${EMAIL_ID}:${ACCESS_TOKEN}`).toString("base64");
     const accountId=req.body.userId;
+
+    if (!accountId) {
+      return res.status(401).json({ error: "Not authenticated" });
+    }
     const response = await axios.get(
       `https://s2ssupport-sandbox.atlassian.net/rest/api/3/user?accountId=${accountId}`,
       {
