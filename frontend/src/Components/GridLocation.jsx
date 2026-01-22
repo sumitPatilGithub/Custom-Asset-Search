@@ -40,7 +40,7 @@ const GridLocation = ({loading,data}) => {
     }
     },[data])
 
-  // Column Definitions: Defines & controls grid columns.
+  // Column Definitions: Defines & controls grid columns. //Location, Customer name, Location Phone, street, city, State and Zip code
   const [colDefs] = useState([
     {
       field: "Location",
@@ -51,15 +51,15 @@ const GridLocation = ({loading,data}) => {
       width: 130,
       // cellRenderer: CompanyLogoRenderer,
     },
-    {
-      field: "Asset Name",
-      width: 225,
-    },
-    {
-      field: "Circuit Name",
-       width: 130,
-      // valueFormatter: dateFormatter,
-    },
+    // {
+    //   field: "Asset Name",
+    //   width: 225,
+    // },
+    // {
+    //   field: "Circuit Name",
+    //    width: 130,
+    //   // valueFormatter: dateFormatter,
+    // },
     {
       field: "Location Phone",
       width: 130,
@@ -67,16 +67,16 @@ const GridLocation = ({loading,data}) => {
       //   return "£" + params.value.toLocaleString();
       // },
     },
-    {
-      field: "Location Address",
-      width: 120,
-      // cellRenderer: MissionResultRenderer,
-    },
-    {
-      field: "Time Zone",
-      width: 120,
-      // cellRenderer: MissionResultRenderer,
-    },
+    // {
+    //   field: "Location Address",
+    //   width: 120,
+    //   // cellRenderer: MissionResultRenderer,
+    // },
+    // {
+    //   field: "Time Zone",
+    //   width: 120,
+    //   // cellRenderer: MissionResultRenderer,
+    // },
     {
       field: "Street",
       width: 120,
