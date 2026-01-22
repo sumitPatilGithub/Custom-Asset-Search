@@ -44,11 +44,11 @@ const GridLocation = ({loading,data}) => {
   const [colDefs] = useState([
     {
       field: "Location",
-      width: 150,
+      // width: 150,
     },
     {
       field: "Customer Name",
-      width: 130,
+      // width: 130,
       // cellRenderer: CompanyLogoRenderer,
     },
     // {
@@ -62,7 +62,7 @@ const GridLocation = ({loading,data}) => {
     // },
     {
       field: "Location Phone",
-      width: 130,
+      // width: 130,
       // valueFormatter: (params) => {
       //   return "£" + params.value.toLocaleString();
       // },
@@ -79,22 +79,22 @@ const GridLocation = ({loading,data}) => {
     // },
     {
       field: "Street",
-      width: 120,
+      // width: 120,
       // cellRenderer: MissionResultRenderer,
     },
     {
       field: "City",
-      width: 120,
+      // width: 120,
       // cellRenderer: MissionResultRenderer,
     },
      {
       field: "State",
-      width: 120,
+      // width: 120,
       // cellRenderer: MissionResultRenderer,
     },
      {
       field: "Zip code",
-      width: 120,
+      // width: 120,
       // cellRenderer: MissionResultRenderer,
     }
   ]);
