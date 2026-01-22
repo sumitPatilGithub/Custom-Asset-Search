@@ -16,22 +16,29 @@ export default function Dashboard() {
     const token = params.get("token");
     // const email=params.get("email")
     if (token) {
-          user = jwtDecode(token); // decode and validate
-      console.log("Logged in user:", user);
-    
-              const profileData=await axios.post("/api/profile",user,{
-               withCredentials:true
-              });
-              console.log("profileData",profileData);
-              setProfilePic(profileData.data.avatarUrls["16x16"])
-              setUserEmail(user.email)
-              localStorage.setItem("profilePic", profileData.data.avatarUrls["16x16"]);
-              localStorage.setItem("email",user.email)
-            }
-            else{
-              setProfilePic(localStorage.getItem("profilePic"));
-              setUserEmail(localStorage.getItem("email"))
-            }
+        try {
+          user = jwtDecode(token); // decode token
+          console.log("Logged in user:", user);
+
+          const profileData = await axios.post("/api/profile", user, {
+            withCredentials: true,
+          });
+
+          setProfilePic(profileData.data.avatarUrls["16x16"]);
+          setUserEmail(user.email);
+          localStorage.setItem("profilePic", profileData.data.avatarUrls["16x16"]);
+          localStorage.setItem("email", user.email);
+        } catch (err) {
+          if (err.response && err.response.status === 401) {
+            setAuthError(true); // show AuthErrorCard
+          } else {
+            console.error("Error fetching profile:", err);
+          }
+        }
+      } else {
+        setProfilePic(localStorage.getItem("profilePic"));
+        setUserEmail(localStorage.getItem("email"));
+      }
            }
            loadData()
            
