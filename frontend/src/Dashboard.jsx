@@ -3,10 +3,12 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import SearchApp from "./SearchApp";
 import { jwtDecode }  from 'jwt-decode'
+import AuthErrorCard from "./AuthErrorCard";
 
 export default function Dashboard() {
   const [profilePic, setProfilePic] = useState("");
   const [userEmail,setUserEmail]=useState("");
+  const [authError,setAuthError]=useState(false)
    useEffect(()=>
        {
            const loadData=async()=>
@@ -45,6 +47,8 @@ export default function Dashboard() {
        },[])
   return (
    <div style={{ marginTop: "50px", marginInline: "10px" }}>
+
+    {authError??<AuthErrorCard message={"Not Authenticated !"}/>}
   {/* Profile pic at top-right */}
   <img
   onClick={() => {
