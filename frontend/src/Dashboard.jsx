@@ -47,18 +47,23 @@ export default function Dashboard() {
    <div style={{ marginTop: "50px", marginInline: "10px" }}>
   {/* Profile pic at top-right */}
   <img
-    src={profilePic}
-    alt="profile"
-    style={{
-      position: "absolute",
-      top: 20,
-      right: 20,
-      width: "40px",
-      height: "40px",
-      borderRadius: "50%",
-      objectFit: "cover",
-    }}
-  />
+  onClick={() => {
+    window.location.href = "https://test-s2s.refined.site"; // redirect on click
+  }}
+  src={profilePic}
+  alt="profile"
+  title={userEmail} // shows email on hover
+  style={{
+    position: "absolute",
+    top: 20,
+    right: 20,
+    width: "40px",
+    height: "40px",
+    borderRadius: "50%",
+    objectFit: "cover",
+    cursor: "pointer", // indicates clickable
+  }}
+/>
 
   {/* SearchApp centered */}
   <div style={{marginTop:"80px"}}>

@@ -279,7 +279,7 @@ import '@atlaskit/css-reset';
 
 function SearchApp({ userEmail }) {
   const [custData, setCustData] = useState({ email: null, companies: [] });
-
+  const [authError,setAuthError]=useState("")
   /* ---------------- FETCH USER + COMPANIES ---------------- */
   useEffect(() => {
     function getEmailAndCompanies(data) {
@@ -330,6 +330,7 @@ function SearchApp({ userEmail }) {
           setCustData(userData);
         }
       } catch (err) {
+        setAuthError("Not Authenticated !")
         console.error("Failed to fetch user companies", err);
       }
     }
@@ -479,10 +480,10 @@ const shouldFetchAssets = custData.companies.length > 0;
   const combinedLoading = loading || assetLoading || circuitLoading;
 
   /* ---------------- ERROR HANDLING ---------------- */
-  if (error || assetError || circuitError) {
+  if (error || assetError || circuitError || authError) {
     return (
       <AuthErrorCard
-        message={String(error || assetError || circuitError)}
+        message={String(error || assetError || circuitError || authError)}
       />
     );
   }
