@@ -199,7 +199,7 @@ app.get('/auth/exchange', async (req, res) => {
   });
   // 
 //  Token REMOVED here
-  res.redirect('/');
+  res.redirect(`/?userId=${accountId}`);
 });
 app.post("/api/profile",async(req,res)=>
 {
