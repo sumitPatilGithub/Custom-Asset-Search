@@ -20,7 +20,7 @@ export default function Dashboard() {
     if (userId) {
         try {
      // decode token
-          console.log("Logged in user:", user);
+          console.log("Logged in user:", userId);
 
           const profileData = await axios.post("/api/profile", {userId}, {
             withCredentials: true,
