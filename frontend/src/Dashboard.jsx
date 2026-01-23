@@ -16,7 +16,7 @@ export default function Dashboard() {
                const params = new URLSearchParams(window.location.search);
                 
     const userId = params.get("userId");
-    // const email=params.get("email")
+    const email=params.get("email")
     if (userId) {
         try {
      // decode token
@@ -27,9 +27,9 @@ export default function Dashboard() {
           });
 
           setProfilePic(profileData.data.avatarUrls["16x16"]);
-          setUserEmail(user.email);
+          setUserEmail(email);
           localStorage.setItem("profilePic", profileData.data.avatarUrls["16x16"]);
-          localStorage.setItem("email", user.email);
+          localStorage.setItem("email", email);
         } catch (err) {
           if (err.response && err.response.status === 401) {
             setAuthError(true); // show AuthErrorCard

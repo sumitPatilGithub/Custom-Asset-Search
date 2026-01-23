@@ -189,7 +189,7 @@ app.get('/auth/exchange', async (req, res) => {
     
     // 👇 Extract accountId
     const accountId = decoded.userId;
-    
+    const email=decoded.email
 
   res.cookie('accountId', accountId, {
    secure: true,
@@ -199,7 +199,7 @@ app.get('/auth/exchange', async (req, res) => {
   });
   // 
 //  Token REMOVED here
-  res.redirect(`/?userId=${accountId}`);
+  res.redirect(`/?userId=${accountId}&email=${email}`);
 });
 app.post("/api/profile",async(req,res)=>
 {
