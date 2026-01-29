@@ -199,11 +199,11 @@ const GridAssets = ({ loading, data }) => {
   const [colDefs] = useState([                 //Customer Name, Location Name, Asset Name, Type, Make/Model, Monitored IP. Public Static IP, Public Gateway IP, Public Subnet Mass
     { field: "Customer Name", width: 130 },
     { field: "Location", width: 225 },
-    { field: "Assets Name", width: 150 },
+    { field: "Assets Name", width: 400 },
     // { field: "Circuit Name", width: 130 },
      { field: "Type", width: 120 },
     { field: "Make/Model", width: 130 },
-    { field: "Monitored IP", width: 120 },
+    { field: "Monitored IP", width: 200 },
     { field: "Public Usage Range", width: 120 },
     { field: "Public Gateway", width: 120 },
     { field: "Public Mask", width: 120 },
