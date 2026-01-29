@@ -42,14 +42,15 @@ const GridLocation = ({loading,data}) => {
 
   // Column Definitions: Defines & controls grid columns. //Location, Customer name, Location Phone, street, city, State and Zip code
   const [colDefs] = useState([
+    
+    {
+      field: "Customer Name",                                        
+      // width: 130,
+      // cellRenderer: CompanyLogoRenderer,
+    },
     {
       field: "Location",
       // width: 150,
-    },
-    {
-      field: "Customer Name",
-      // width: 130,
-      // cellRenderer: CompanyLogoRenderer,
     },
     // {
     //   field: "Asset Name",
