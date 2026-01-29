@@ -55,7 +55,7 @@ console.log('circuits data',data);
     },
     {
       field: "Circuit Name",                  //Customer Name, Location Name, Circuit Name, Circuit Type, Download Speed, Upload Speed, ISP, Name, ISP Contact, Account NumberC
-      width: 400,
+      width: 330,
     },
     // {
     //   field: "Asset Name",
