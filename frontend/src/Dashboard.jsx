@@ -52,7 +52,7 @@ export default function Dashboard() {
   {/* Profile pic at top-right */}
   <img
   onClick={() => {
-    window.location.href = "https://test-s2s.refined.site"; // redirect on click
+    window.location.href = "https://s2ssupport-sandbox.atlassian.net/servicedesk/customer/portals"; // redirect on click
   }}
   src={profilePic}
   alt="profile"

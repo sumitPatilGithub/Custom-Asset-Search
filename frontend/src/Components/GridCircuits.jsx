@@ -43,7 +43,10 @@ console.log('circuits data',data);
 
   // Column Definitions: Defines & controls grid columns.
   const [colDefs] = useState([
-    
+    {
+      field: "Circuit Name",
+      width: 150,
+    },
     {
       field: "Customer Name",
       width: 130,
@@ -54,14 +57,10 @@ console.log('circuits data',data);
       width: 225,
     },
     {
-      field: "Circuit Name",                  //Customer Name, Location Name, Circuit Name, Circuit Type, Download Speed, Upload Speed, ISP, Name, ISP Contact, Account NumberC
-      width: 330,
+      field: "Asset Name",
+       width: 130,
+      // valueFormatter: dateFormatter,
     },
-    // {
-    //   field: "Asset Name",
-    //    width: 130,
-    //   // valueFormatter: dateFormatter,
-    // },
     {
       field: "Circuit Type",
       width: 130,
@@ -69,7 +68,11 @@ console.log('circuits data',data);
       //   return "£" + params.value.toLocaleString();
       // },
     },
-    
+    // {
+    //   field: "ISP Name",
+    //   width: 120,
+    //   // cellRenderer: MissionResultRenderer,
+    // },
     {
       field: "Download Speed",
       width: 120,
@@ -77,11 +80,6 @@ console.log('circuits data',data);
     },
     {
       field: "Upload Speed",
-      width: 120,
-      // cellRenderer: MissionResultRenderer,
-    },
-    {
-      field: "ISP Name",
       width: 120,
       // cellRenderer: MissionResultRenderer,
     },
@@ -95,21 +93,21 @@ console.log('circuits data',data);
       width: 120,
       // cellRenderer: MissionResultRenderer,
     },
-    //  {
-    //   field: "Service Level",
-    //   width: 120,
-    //   // cellRenderer: MissionResultRenderer,
-    // },
+     {
+      field: "Service Level",
+      width: 120,
+      // cellRenderer: MissionResultRenderer,
+    },
     {
       field: "Account Number",
       width: 120,
       // cellRenderer: MissionResultRenderer,
     },
-    // {
-    //   field: "ISP Name (Provider Name)",
-    //   width: 120,
-    //   // cellRenderer: MissionResultRenderer,
-    // }
+    {
+      field: "ISP Name (Provider Name)",
+      width: 120,
+      // cellRenderer: MissionResultRenderer,
+    }
   ]);
 
   // Apply settings across all columns
