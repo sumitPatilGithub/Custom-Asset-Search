@@ -163,14 +163,14 @@ function MyNavbar() {
           </Nav.Item>
 
           <Nav.Item>
-            <LinkContainer to="/circuits">
-              <Nav.Link className="text-light fw-bold">Circuits</Nav.Link>
-            </LinkContainer>
-          </Nav.Item>
-
-          <Nav.Item>
             <LinkContainer to="/assets">
               <Nav.Link className="text-light fw-bold">Assets</Nav.Link>
+            </LinkContainer>
+          </Nav.Item>
+    
+          <Nav.Item>
+            <LinkContainer to="/circuits">
+              <Nav.Link className="text-light fw-bold">Circuits</Nav.Link>
             </LinkContainer>
           </Nav.Item>
 
